@@ -1,0 +1,22 @@
+apiVersion: "kubernetes.com/v1"
+kind: Network
+metadata:
+  name: sriov-niantic-ipam40-60-vlan9
+plugin: sriov
+args: '[
+       {
+                "if0": "enp4s0f0",
+                "if0name": "sriov",
+                "vlan": 9,
+                "ipam": {
+                        "type": "host-local",
+                        "subnet": "192.168.1.0/24",
+                        "rangeStart": "192.168.1.40",
+                        "rangeEnd": "192.168.1.60",
+                        "routes": [
+                                { "dst": "0.0.0.0/0" }
+                        ],
+                        "gateway": "192.168.1.1"
+                }
+        }
+]'

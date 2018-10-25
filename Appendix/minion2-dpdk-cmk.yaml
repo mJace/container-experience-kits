@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Pod 
+metadata: 
+  labels:
+    app: minion2-dpdk-cmk
+  annotations:
+    networks: '[
+        { "name": "flannel-conf" },
+        { "name": "sriov-niantic-dpdk" },
+        { "name": "sriov-niantic-ipam40-60-vlan9" }
+    ]'
+  name: minion2-dpdk-cmk
+spec:
+  containers:
+  - args: ["sleep 3600"]
+    command:
+    - "/bin/sh"
+    - "-c"
+    env:
+    - name: CMK_PROC_FS
+      value: "/host/proc"
+    image: dpdk-app-niantic:latest 
+    imagePullPolicy: "IfNotPresent"
+    name: test1
+    volumeMounts:
+    - mountPath: "/host/proc" 
+      name: host-proc 
+      readOnly: true
+    - mountPath: "/opt/bin" 
+      name: cmk-install-dir
+    - mountPath: "/etc/cmk" 
+      name: cmk-conf-dir
+    - mountPath: /sriov-cni 
+      name: cni-volume
+    - mountPath: /dev/hugepages
+      name: hugepage
+    resources: 
+      limits:
+        hugepages-1Gi: 16Gi
+      requests:
+        pod.alpha.kubernetes.io/opaque-int-resource-cmk: '1' 
+    securityContext:
+      privileged: true 
+      runAsUser: 0
+  tolerations:
+  - key: "cmk"
+    operator: "Exists"
+  nodeSelector:
+    kubernetes.io/hostname: minion-1
+    node.alpha.kubernetes-incubator.io/nfd-network-sriov-configured: "true" 
+  restartPolicy: Never
+  securityContext: 
+    runAsUser: 0
+  volumes:
+  - hostPath:
+      path: "/opt/bin" 
+    name: cmk-install-dir
+  - hostPath:
+      path: "/proc"
+    name: host-proc
+  - hostPath:
+      path: "/etc/cmk" 
+    name: cmk-conf-dir
+  - hostPath:
+      path: /var/lib/cni/sriov/
+    name: cni-volume
+  - emptyDir:
+      medium: HugePages
+    name: hugepage
+

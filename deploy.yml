@@ -1,0 +1,71 @@
+---
+# All configurable items are in ``groups_vars/all/all.yml``
+# Some default parameters shown for reference
+
+use_dpdk: true
+
+kubernetes_version: "1.9.1"
+kubernetes_cni_version: "0.6.0"
+
+pod_network_type: flannel
+
+use_k8s_native_hugepages: true
+
+use_sriov: true
+num_virtual_functions: 7 
+
+use_cmk: true
+cmk_img: "cmk:v1.2.2"
+num_dp_cores: 4
+num_cp_cores: 1
+
+node_info:
+  master-1:
+    networks:
+      mgmt:
+        interface: enp6s0f0
+        boot_protocol: static
+        ip_address: 100.86.1.141
+        prefix: 16
+        gateway: 100.86.0.254
+      inter:
+        interface: enp6s0f0
+        boot_protocol: static
+        ip_address: 100.86.1.141
+        prefix: 16
+        gateway: 100.86.0.254
+        dns:
+          nameserver:
+            - 8.8.8.8
+    tenant_networks:
+      virtual-1:
+        interface: enp4s0f0
+        boot_protocol: none
+      virtual-2:
+        interface: enp4s0f1
+        boot_protocol: none
+
+  minion-1:
+    networks:
+      mgmt:
+        interface: enp6s0f0
+        boot_protocol: static
+        ip_address: 100.86.1.142
+        prefix: 16
+        gateway: 100.86.0.254
+      inter:
+        interface: enp6s0f0
+        boot_protocol: static
+        ip_address: 100.86.1.142
+        prefix: 16
+        gateway: 100.86.0.254
+        dns:
+          nameserver:
+            - 8.8.8.8
+    tenant_networks:
+      virtual-1:
+        interface: enp4s0f0
+        boot_protocol: none
+      virtual-2:
+        interface: enp4s0f1
+        boot_protocol: none

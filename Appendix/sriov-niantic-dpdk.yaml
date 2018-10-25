@@ -1,0 +1,17 @@
+apiVersion: "kubernetes.com/v1"
+kind: Network
+metadata:
+  name: sriov-niantic-dpdk
+plugin: sriov
+args: '[
+       {
+                "if0": "enp4s0f1",
+                "if0name": "sriov-dpdk",
+                "vlan": 9,
+                "dpdk": {
+                    "kernel_driver":"ixgbevf",
+                    "dpdk_driver":"vfio-pci",
+                    "dpdk_tool":"/opt/dpdk/usertools/dpdk-devbind.py" 
+                }
+        }
+]'
