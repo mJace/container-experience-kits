@@ -28,6 +28,17 @@
     command: kubeadm init {{ k8s_version|default(false) }} --apiserver-advertise-address {{ api_advertise }} {{ pod_network_cidr|default('') }}
     register: kubeadm_init_tmp
 
+  - name: add Hugepages featuregate into kube services
+    lineinfile:
+      path: "/etc/kubernetes/manifests/{{ item }}"
+      line: "    - --feature-gates=HugePages=true"
+      insertbefore: "^    image"
+    with_items:
+      - kube-apiserver.yaml
+      - kube-scheduler.yaml
+      - kube-controller-manager.yaml
+    when: use_k8s_native_hugepages
+
   - name: export KUBECONFIG admin.conf
     lineinfile:
       dest: /etc/environment
