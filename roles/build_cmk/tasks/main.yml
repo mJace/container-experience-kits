@@ -57,6 +57,18 @@
       path: /opt/cmk/requirements.txt
       line: 'pluggy>=0.5, <0.7'
       insertbefore: BOF
+  
+  # - name: Fix pytest in requirements.txt
+  #   lineinfile: 
+  #     path: /opt/cmk/requirements.txt
+  #     line: 'pytest==3.3.2'
+  #     insertbefore: BOF
+
+  # - name: Fix pytest-cov in requirements.txt
+  #   lineinfile: 
+  #     path: /opt/cmk/requirements.txt
+  #     line: 'pytest-cov==2.4.0'
+  #     insertbefore: BOF
 
   - name: Fix flake8 version to 3.5.0
     replace:
