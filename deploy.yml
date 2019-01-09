@@ -4,7 +4,7 @@
 
 use_dpdk: true
 
-kubernetes_version: "1.9.1"
+kubernetes_version: "1.10.11"
 kubernetes_cni_version: "0.6.0"
 
 pod_network_type: flannel
@@ -15,7 +15,8 @@ use_sriov: true
 num_virtual_functions: 7 
 
 use_cmk: true
-cmk_img: "cmk:v1.2.2"
+# cmk_img: "cmk:v1.2.2"
+cmk_img: "cmk:v1.3.0"
 num_dp_cores: 4
 num_cp_cores: 1
 

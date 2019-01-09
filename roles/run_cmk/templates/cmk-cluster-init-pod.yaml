@@ -23,7 +23,7 @@ spec:
   hostNetwork: true
   containers:
   - args:
-      - "/cmk/cmk.py cluster-init --all-hosts --cmk-img={{ cmk_img }} --num-dp-cores={{ num_dp_cores }} --num-cp-cores={{ num_cp_cores }} --saname=cmk-serviceaccount"
+      - "/cmk/cmk.py cluster-init --all-hosts --cmk-img={{ cmk_img }} --num-exclusive-cores={{ num_dp_cores }} --num-shared-cores={{ num_cp_cores }} --saname=cmk-serviceaccount"
     command:
     - "/bin/bash"
     - "-c"
