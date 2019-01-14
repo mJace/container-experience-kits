@@ -1,8 +1,8 @@
 ---
 git_repos:
   # CMK_BRANCH: 1a11d8dcb238e6ccaee2c5e24716df0a7caa65dc
-  CMK_BRANCH: 68a26b5c38e3869088563932de24bc3833615b99
-  CMK_REPO: https://github.com/mJace/CPU-Manager-for-Kubernetes.git
+  CMK_BRANCH: 77f784dd368f96d77e0bb381b071ce3a11bbe189
+  CMK_REPO: https://github.com/intel/CPU-Manager-for-Kubernetes.git
   DPDK_BRANCH: b2b58b51df4943bcab770b1eb66912eaa41e1306
   DPDK_REPO: http://dpdk.org/git/dpdk
   MULTUS_CNI_BRANCH: 1ea64694f21a52235ff50b9181faf454676e55d8
