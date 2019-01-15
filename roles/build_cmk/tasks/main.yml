@@ -52,17 +52,17 @@
       src: proxy_makefile
     when: '"http_proxy" in calc_proxy_env or "https_proxy" in calc_proxy_env'
 
-  - name: Change cmk requiremtents
-    lineinfile: 
-      path: /opt/cmk/requirements.txt
-      line: 'pluggy>=0.5, <0.7'
-      insertbefore: BOF
+  # - name: Change cmk requiremtents
+  #   lineinfile: 
+  #     path: /opt/cmk/requirements.txt
+  #     line: 'pluggy>=0.5, <0.7'
+  #     insertbefore: BOF
 
-  - name: Fix flake8 version to 3.5.0
-    replace:
-      path: /opt/cmk/tox.ini
-      regexp: '^  flake8$'
-      replace: '  flake8 == 3.5.0'
+  # - name: Fix flake8 version to 3.5.0
+  #   replace:
+  #     path: /opt/cmk/tox.ini
+  #     regexp: '^  flake8$'
+  #     replace: '  flake8 == 3.5.0'
 
   - name: Build cmk image
     make:
