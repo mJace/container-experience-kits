@@ -1,0 +1,45 @@
+
+---
+  - name: install helm
+    command: "sudo snap install helm --classic"
+    ignore_errors: true
+
+  - name: create helm service account
+    command: "kubectl create serviceaccount --namespace kube-system tiller"
+    environment:
+      KUBECONFIG: "{{ kubeconfig }}"
+    ignore_errors: true
+
+  - name: create cluster role binding for helm
+    command: "kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller"
+    environment:
+      KUBECONFIG: "{{ kubeconfig }}"
+    ignore_errors: true
+
+  - name: wait 5 sec
+    pause:
+      seconds: 5
+
+  - name: install tiller
+    command: "helm init --upgrade"
+    ignore_errors: true
+
+  - name: wait 5 sec
+    pause:
+      seconds: 5
+
+  - name: create name space for helm tiller
+    command: >
+      kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
+    environment:
+      KUBECONFIG: "{{ kubeconfig }}"
+    ignore_errors: true
+
+  - name: wait 5 sec
+    pause:
+      seconds: 5
+
+  - name: init tiller again
+    command: "helm init --upgrade"
+    ignore_errors: true
+

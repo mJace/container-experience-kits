@@ -36,3 +36,4 @@
     - run_nfd
     - role: run_cmk
       when: use_cmk
+    - install_helm
